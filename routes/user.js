@@ -3,7 +3,7 @@ const router = require('express').Router()
 
 router.post('/createUser', createUser)
 
-router.get('/readUser/:id', readUserData)
+router.get('/readUser', readUserData)
 
 router.patch('/updateUser/:id', updateUser)
 

@@ -75,10 +75,9 @@ const logIn = async (req, res) => {
 
 const readUserData = async (req, res) => {
     try {
-        const data = await user.findById(req.params.id)
+        const data = await user.find().select('-password')
         res.status(200).json({
             status: 'success',
-            message: `${data.firstName}'s data fetched`,
             data: data
         })
     } catch (error) {
