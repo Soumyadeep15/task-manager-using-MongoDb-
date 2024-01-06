@@ -45,7 +45,7 @@ const readTask = async (req, res) => {
 const updateTask = async(req, res) => {
     try {
         const userId = req.user.userId
-        const data = await task.findOneAndUpdate({userId: userId, _id: req.params.id}, {$set: req.body}, { new: true })
+        const data = await task.findOneAndUpdate({userId: userId, _id: req.body}, {$set: req.body}, { new: true })
         res.status(200).json({
             status: 'success',
             message: `data updated for ${req.user.firstName}`,
@@ -63,12 +63,12 @@ const updateTask = async(req, res) => {
 const deleteTask = async (req, res) => {
     try {
         const userId = req.user.userId
-        await task.findByIdAndDelete(req.params.id)
+        await task.findOneAndDelete({_id: req.params.id, userId})
+        const deletedData = await task.findOne({_id: req.params.id})
             res.status(200).json({
                 status: 'success',
                 message: `task deleted successfully for ${req.user.firstName}`
-            })
-        
+            })           
     } catch (error) {
         res.status(400).json({
             status: 'failed',
