@@ -119,10 +119,18 @@ const deleteUser = async (req, res) => {
     }
 }
 
+const searchUserByName = async (req, res) => {
+    const data = await user.find(req.body)
+    res.json({
+        data: data
+    })
+}
+
 module.exports = {
     createUser,
     readUserData,
     updateUser,
     deleteUser,
-    logIn
+    logIn,
+    searchUserByName
 }
