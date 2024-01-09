@@ -90,10 +90,10 @@ const readUserData = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const data = await user.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        const data = await user.findByIdAndUpdate(req.user.userId, req.body, { new: true })
         res.status(200).json({
             status: 'success',
-            message: 'data updated',
+            message: `data updated for ${req.user.firstName}`,
             newData: data
         })
     } catch (error) {
@@ -119,12 +119,12 @@ const deleteUser = async (req, res) => {
     }
 }
 
-const searchUserByName = async (req, res) => {
-    const data = await user.find(req.body)
-    res.json({
-        data: data
-    })
-}
+// const searchUserByName = async (req, res) => {
+//     const data = await user.find(req.body)
+//     res.json({
+//         data: data
+//     })
+// }
 
 module.exports = {
     createUser,
@@ -132,5 +132,5 @@ module.exports = {
     updateUser,
     deleteUser,
     logIn,
-    searchUserByName
+    // searchUserByName
 }

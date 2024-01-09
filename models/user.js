@@ -3,8 +3,7 @@ const mongoose = require('mongoose')
 const userSchema = mongoose.Schema({
     firstName: {
         type: String,
-        require: true,
-        index: true
+        require: true
     },
     lastName: {
         type: String,
