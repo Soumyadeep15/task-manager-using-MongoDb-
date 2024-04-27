@@ -75,10 +75,9 @@ const logIn = async (req, res) => {
 
 const readUserData = async (req, res) => {
     try {
-        const data = await user.findById(req.params.id)
+        const data = await user.find().select('-password')
         res.status(200).json({
             status: 'success',
-            message: `${data.firstName}'s data fetched`,
             data: data
         })
     } catch (error) {
@@ -91,10 +90,10 @@ const readUserData = async (req, res) => {
 
 const updateUser = async (req, res) => {
     try {
-        const data = await user.findByIdAndUpdate(req.params.id, req.body, { new: true })
+        const data = await user.findByIdAndUpdate(req.user.userId, req.body, { new: true })
         res.status(200).json({
             status: 'success',
-            message: 'data updated',
+            message: `data updated for ${req.user.firstName}`,
             newData: data
         })
     } catch (error) {
@@ -120,10 +119,18 @@ const deleteUser = async (req, res) => {
     }
 }
 
+// const searchUserByName = async (req, res) => {
+//     const data = await user.find(req.body)
+//     res.json({
+//         data: data
+//     })
+// }
+
 module.exports = {
     createUser,
     readUserData,
     updateUser,
     deleteUser,
-    logIn
+    logIn,
+    // searchUserByName
 }
